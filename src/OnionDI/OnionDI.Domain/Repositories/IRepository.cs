@@ -8,8 +8,8 @@ namespace OnionDI.Domain.Repositories
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(TKey id);
-        Task CreateAsync(TEntity game);
-        Task UpdateAsync(TEntity game);
+        Task CreateAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
         Task DeleteAsync(TKey id);
     }
 }
