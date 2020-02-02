@@ -20,9 +20,15 @@ namespace OnionDI.Data.Repositories
             _context = context;
         }
         
-        public async Task<IEnumerable<Order>> GetAllAsync()
+        public async Task<IEnumerable<Order>> GetSubsetAsync(int? limit = null, int? offset = null)
         {
-            var orders = _context.Orders.ToArray();
+            var orders = (offset is null) ? 
+                _context.Orders : 
+                _context.Orders.Skip(offset.Value);
+            
+            orders = (limit is null) ? 
+                orders : 
+                orders.Take(limit.Value);
 
             foreach (var order in orders)
                 await LoadEntityProperties(order);

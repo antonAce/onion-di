@@ -6,7 +6,7 @@ namespace OnionDI.Domain.Repositories
 {
     public interface IRepository<TEntity, TKey> : IDisposable
     {
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetSubsetAsync(int? limit, int? offset);
         Task<TEntity> GetByIdAsync(TKey id);
         Task CreateAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
