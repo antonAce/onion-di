@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using OnionDI.Business.Infrastructure.DTO;
 
-namespace OnionDI.Business.Infrastructure.Services
+namespace OnionDI.Business.Infrastructure.Interfaces
 {
     public interface IOrderService
     {
@@ -14,8 +14,8 @@ namespace OnionDI.Business.Infrastructure.Services
         Task AddProductToTheOrder(OrderDto order, ProductDto product);
         Task RemoveProductFromTheOrder(OrderDto order, ProductDto product);
         
-        Task<ProductDto> GetProductsOfOrder(OrderDto order);
-        Task<IEnumerable<OrderDto>> ListOrders(int limit, int offset);
+        IAsyncEnumerable<ProductDto> GetProductsOfOrder(OrderDto order);
+        IAsyncEnumerable<OrderDto> ListOrders(int limit, int offset);
         Task<OrderDto> GetOrderById(int id);
     }
 }

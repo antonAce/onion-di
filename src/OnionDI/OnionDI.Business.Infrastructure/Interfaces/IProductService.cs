@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using OnionDI.Business.Infrastructure.DTO;
 
-namespace OnionDI.Business.Infrastructure.Services
+namespace OnionDI.Business.Infrastructure.Interfaces
 {
     public interface IProductService
     {
@@ -12,6 +12,6 @@ namespace OnionDI.Business.Infrastructure.Services
         Task RemoveProduct(ProductDto product);
         
         Task<ProductDto> GetProductByGtin(string gtin);
-        Task<IEnumerable<ProductDto>> ListProducts(int limit, int offset);
+        IAsyncEnumerable<ProductDto> ListProducts(int limit, int offset);
     }
 }
