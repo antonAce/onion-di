@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OnionDI.Business.Infrastructure\OnionDI.Business.Infrastructure.csproj" />
+      <ProjectReference Include="..\OnionDI.Domain\OnionDI.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Dependencies" />
+    </ItemGroup>
+
+</Project>
