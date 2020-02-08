@@ -17,8 +17,7 @@ namespace OnionDI.Data.EF.Config.Mapping
                 .ValueGeneratedOnAdd();
             
             builder.Property(o => o.OrderingDate)
-                .IsRequired()
-                .HasColumnType("datetime");
+                .IsRequired();
         }
     }
 }

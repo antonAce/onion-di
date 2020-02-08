@@ -14,17 +14,22 @@ namespace OnionDI.Data.EF.Config.Mapping
                 .HasName("OrdersToProductsPK");
             
             builder.Property(op => op.OrderId)
+                .IsRequired()
                 .ValueGeneratedNever();
 
             builder.Property(op => op.ProductGtin)
+                .IsRequired()
                 .ValueGeneratedNever();
+            
+            builder.Property(o => o.ProductCount)
+                .IsRequired();
             
             builder.HasOne(op => op.Order)
                 .WithMany(o => o.OrderProducts)
                 .HasForeignKey(op => op.OrderId);
             
             builder.HasOne(op => op.Product)
-                .WithMany(o => o.OrderProducts)
+                .WithMany(p => p.OrderProducts)
                 .HasForeignKey(op => op.ProductGtin);
         }
     }
