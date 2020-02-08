@@ -24,27 +24,13 @@ namespace OnionDI.Business.Services
         
         public async Task CreateProduct(ProductDto product)
         {
-            await _productRepository.CreateAsync(new Product
-            {
-                Gtin = product.Gtin,
-                Description = product.Description,
-                Name = product.Name,
-                Price = product.Price
-            });
-
+            await _productRepository.CreateAsync(DtoToProduct(product));
             await _unitOfWork.CommitAsync();
         }
 
         public async Task ModifyProduct(ProductDto product)
         {
-            await _productRepository.UpdateAsync(new Product
-            {
-                Gtin = product.Gtin,
-                Description = product.Description,
-                Name = product.Name,
-                Price = product.Price
-            });
-
+            await _productRepository.UpdateAsync(DtoToProduct(product));
             await _unitOfWork.CommitAsync();
         }
 
@@ -56,7 +42,19 @@ namespace OnionDI.Business.Services
         public async Task<ProductDto> GetProductByGtin(string gtin)
         {
             var product = await _productRepository.GetByIdAsync(gtin);
-            
+            return ProductToDto(product);
+        }
+
+        public async IAsyncEnumerable<ProductDto> ListProducts(int limit, int offset)
+        {
+            var products = await _productRepository.GetSubsetAsync(limit, offset);
+                        
+            foreach (var product in products)
+                yield return ProductToDto(product);
+        }
+
+        private ProductDto ProductToDto(Product product)
+        {
             return new ProductDto
             {
                 Gtin = product.Gtin,
@@ -66,20 +64,15 @@ namespace OnionDI.Business.Services
             };
         }
 
-        public async IAsyncEnumerable<ProductDto> ListProducts(int limit, int offset)
+        private Product DtoToProduct(ProductDto product)
         {
-            var products = await _productRepository.GetSubsetAsync(limit, offset);
-                        
-            foreach (var product in products)
+            return new Product
             {
-                yield return new ProductDto
-                {
-                    Gtin = product.Gtin,
-                    Description = product.Description,
-                    Name = product.Name,
-                    Price = product.Price
-                };
-            }
+                Gtin = product.Gtin,
+                Description = product.Description,
+                Name = product.Name,
+                Price = product.Price
+            };
         }
     }
 }
