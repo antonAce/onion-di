@@ -45,7 +45,7 @@ namespace OnionDI.Business.Services
             return ProductToDto(product);
         }
 
-        public async IAsyncEnumerable<ProductDto> ListProducts(int limit, int offset)
+        public async IAsyncEnumerable<ProductDto> ListProducts(int? limit, int? offset)
         {
             var products = await _productRepository.GetSubsetAsync(limit, offset);
                         

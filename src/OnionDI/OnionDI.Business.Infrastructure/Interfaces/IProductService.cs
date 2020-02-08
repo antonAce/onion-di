@@ -12,6 +12,6 @@ namespace OnionDI.Business.Infrastructure.Interfaces
         Task RemoveProduct(ProductDto product);
         
         Task<ProductDto> GetProductByGtin(string gtin);
-        IAsyncEnumerable<ProductDto> ListProducts(int limit, int offset);
+        IAsyncEnumerable<ProductDto> ListProducts(int? limit, int? offset);
     }
 }

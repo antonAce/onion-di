@@ -80,7 +80,7 @@ namespace OnionDI.Business.Services
                 yield return ProductToDto(product);
         }
 
-        public async IAsyncEnumerable<OrderDto> ListOrders(int limit, int offset)
+        public async IAsyncEnumerable<OrderDto> ListOrders(int? limit = null, int? offset = null)
         {
             var orders = await _orderRepository.GetSubsetAsync(limit, offset);
             

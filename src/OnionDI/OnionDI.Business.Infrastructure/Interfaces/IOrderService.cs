@@ -15,7 +15,7 @@ namespace OnionDI.Business.Infrastructure.Interfaces
         Task RemoveProductFromTheOrder(OrderDto order, ProductDto product);
         
         IAsyncEnumerable<ProductDto> GetProductsOfOrder(OrderDto order);
-        IAsyncEnumerable<OrderDto> ListOrders(int limit, int offset);
+        IAsyncEnumerable<OrderDto> ListOrders(int? limit, int? offset);
         Task<OrderDto> GetOrderById(int id);
     }
 }
