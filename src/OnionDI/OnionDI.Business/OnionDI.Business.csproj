@@ -9,8 +9,4 @@
       <ProjectReference Include="..\OnionDI.Domain\OnionDI.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Dependencies" />
-    </ItemGroup>
-
 </Project>
