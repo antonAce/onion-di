@@ -28,23 +28,13 @@ namespace OnionDI.Business.Services
         
         public async Task CreateOrder(OrderDto order)
         {
-            await _orderRepository.CreateAsync(new Order
-            {
-                Id = order.Id,
-                OrderingDate = order.OrderingDate
-            });
-
+            await _orderRepository.CreateAsync(DtoToOrder(order));
             await _unitOfWork.CommitAsync();
         }
 
         public async Task ChangeOrder(OrderDto order)
         {
-            await _orderRepository.UpdateAsync(new Order
-            {
-                Id = order.Id,
-                OrderingDate = order.OrderingDate
-            });
-            
+            await _orderRepository.UpdateAsync(DtoToOrder(order));
             await _unitOfWork.CommitAsync();
         }
 
@@ -86,16 +76,8 @@ namespace OnionDI.Business.Services
             var orderToReturn = await _orderRepository.GetByIdAsync(order.Id);
             var products = orderToReturn.OrderProducts.Select(op => op.Product);
 
-            foreach (var item in products)
-            {
-                yield return new ProductDto
-                {
-                    Gtin = item.Gtin,
-                    Description = item.Description,
-                    Name = item.Name,
-                    Price = item.Price
-                };
-            }
+            foreach (var product in products)
+                yield return ProductToDto(product);
         }
 
         public async IAsyncEnumerable<OrderDto> ListOrders(int limit, int offset)
@@ -103,20 +85,38 @@ namespace OnionDI.Business.Services
             var orders = await _orderRepository.GetSubsetAsync(limit, offset);
             
             foreach (var order in orders)
-            {
-                yield return new OrderDto
-                {
-                    Id = order.Id,
-                    OrderingDate = order.OrderingDate,
-                };
-            }
+                yield return OrderToDto(order);
         }
 
         public async Task<OrderDto> GetOrderById(int id)
         {
             var order = await _orderRepository.GetByIdAsync(id);
-            
+            return OrderToDto(order);
+        }
+        
+        private OrderDto OrderToDto(Order order)
+        {
             return new OrderDto
+            {
+                Id = order.Id,
+                OrderingDate = order.OrderingDate
+            };
+        }
+        
+        private ProductDto ProductToDto(Product product)
+        {
+            return new ProductDto
+            {
+                Gtin = product.Gtin,
+                Description = product.Description,
+                Name = product.Name,
+                Price = product.Price
+            };
+        }
+
+        private Order DtoToOrder(OrderDto order)
+        {
+            return new Order
             {
                 Id = order.Id,
                 OrderingDate = order.OrderingDate
