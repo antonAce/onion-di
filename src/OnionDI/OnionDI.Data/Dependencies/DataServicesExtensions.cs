@@ -17,6 +17,7 @@ namespace OnionDI.Data.Dependencies
         {
             services.AddDbContext<DataContext>(optionsAction);
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         }
     }
