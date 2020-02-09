@@ -4,5 +4,15 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\OnionDI.Business.Infrastructure\OnionDI.Business.Infrastructure.csproj" />
+      <ProjectReference Include="..\OnionDI.Business\OnionDI.Business.csproj" />
+      <ProjectReference Include="..\OnionDI.Data\OnionDI.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Linq.Async" Version="4.0.0" />
+    </ItemGroup>
+
 
 </Project>
